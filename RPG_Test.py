@@ -1,12 +1,17 @@
 #RPG_TEST
 #Dennis Gordick
 #10/21/2014
+#Last: Danielle Brhely
 
 import random
 import time
+import shelve
 Name=input("What is your name?")
 Race=input("What is your race? (Your choices are Human, Elf, and Dwarf.)")
 Class=input("What is your class? (Your choices are Warrior, Archer, and Mage.")
+Damage = ["Sword",6,"Bow",4,"Staff",4]
+Boss_weapon = []
+Boss_weaponDam = []
 if Class=="Warrior":
     Weapon="Sword"
     print("A "+Weapon+" is your weapon")
@@ -133,6 +138,7 @@ while health > 0:
                          boss_xp=int(monster_xp)*3
                          boss_dmg=int(lvl)*3
                          boss_loot=int(lvl)*100
+                         boss_weapon = Class +Damage
                          run=input("Do you fight or run?")
                          while int(boss_health)>0 and int(health) > 0 and run=="fight":
                              print("Your Health: "+str(health))
@@ -166,6 +172,12 @@ while health > 0:
                                 print("\nThe boss died\n")
                                 print("XP gained: "+ str(boss_xp))
                                 print("Your XP: "+ str(xp))
+                                print("The Boss drop its weapon.")
+                                input("Do you want to pick up the weapon? ")
+                                if weapon == "yes":
+                                    print("You got the boss' weapon")
+                                else:
+                                    print("You pass the boss' weapon")
                                 loot_chance=random.randint(1,100)
                                 if int(loot_chance) <10:
                                     print("No loot :(")
@@ -218,3 +230,40 @@ while health > 0:
                     print("You get drunk out of your mind.")
                 else:
                     print("Goodbye")
+                    
+        def save_game(file):
+            file = shelve.open('savegame', 'n')
+            save = input("Do you want to save your file? ")
+            if save == "yes":
+                print("your file have been save")
+            elif save == "no":
+                back = input("Do you want to go back? (yes/no)")
+            if back == "yes":
+                print("Back to explore")
+                save_game()
+
+        def load_game(file):
+            file = shelve.open('savegame', 'r')
+            if file == "1":
+                load_game()
+            else:
+                print("No save file")
+            
+            
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
